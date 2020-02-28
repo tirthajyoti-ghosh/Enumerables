@@ -77,4 +77,18 @@ module Enumerable
     end
     true
   end
+
+  def my_count
+    return size unless block_given?
+
+    count = 0
+    i = 0
+    while i < size
+      count += 1 if yield(self[i])
+
+      i += 1
+    end
+
+    count
+  end
 end
