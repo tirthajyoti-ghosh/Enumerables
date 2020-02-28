@@ -41,4 +41,40 @@ module Enumerable
 
     selected_array
   end
+
+  def my_all?
+    i = 0
+    while i < size
+      return false if block_given? && !yield(self[i])
+
+      return false if self[i] == false || self[i].nil?
+
+      i += 1
+    end
+    true
+  end
+
+  def my_any?
+    i = 0
+    while i < size
+      return true if block_given? && yield(self[i])
+
+      return false if self[i] == false || self[i].nil?
+
+      i += 1
+    end
+    false
+  end
+
+  def my_none?
+    i = 0
+    while i < size
+      return false if block_given? && yield(self[i])
+
+      return false if self[i] == false || self[i].nil?
+
+      i += 1
+    end
+    true
+  end
 end
