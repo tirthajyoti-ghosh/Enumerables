@@ -48,7 +48,7 @@ module Enumerable
     i = 0
     while i < size
       return true if block_given? && yield(self[i])
-      return false if self[i] == false || self[i].nil?
+      return true if !self[i] == false && !self[i].nil?
 
       i += 1
     end
