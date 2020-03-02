@@ -32,9 +32,9 @@ puts
 puts '_' * 40
 # Test for #my_all
 puts 'Test for #my_all'
-puts(%w[ant bear cat].all? { |word| word.length >= 3 })
-puts(%w[ant bear cat].all? { |word| word.length >= 4 })
-puts [nil, true, 99].all?
+puts(%w[ant bear cat].my_all? { |word| word.length >= 3 })
+puts(%w[ant bear cat].my_all? { |word| word.length >= 4 })
+puts [nil, true, 99].my_all?
 puts [].all?
 
 puts '_' * 40
@@ -86,7 +86,7 @@ puts((5..10).my_inject(1, :*))
 puts([2, 3, 5, 6, 1, 7, 5, 3, 9].my_inject(1, :*))
 puts((5..10).my_inject(1) { |product, n| product * n })
 puts([2, 3, 5, 6, 1, 7, 5, 3, 9].my_inject(1) { |product, n| product * n })
-longest = %w[cat sheep bear].inject { |memo, word| memo.length > word.length ? memo : word }
+longest = %w[cat sheep bear].my_inject { |memo, word| memo.length > word.length ? memo : word }
 puts longest
 # Testing #multiply_els
 puts multiply_els([2, 4, 5])
