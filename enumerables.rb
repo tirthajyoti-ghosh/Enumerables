@@ -58,24 +58,39 @@ module Enumerable
   def my_none?
     i = 0
     while i < size
-      return false if block_given? && yield(self[i])
-      return false if self[i] == false || self[i].nil?
+      if block_given?
+        return false if yield(self[i])
+      elsif !self[i] == false && !self[i].nil?
+        return false
+      end
 
       i += 1
     end
     true
   end
 
-  def my_count
-    return size unless block_given?
+  def my_count(item = nil)
+    return size if !block_given? && item.nil?
 
     count = 0
-    i = 0
-    while i < size
-      count += 1 if yield(self[i])
-      i += 1
+    my_each do |n|
+      count += 1 if (block_given? && yield(n)) || (n == item)
     end
     count
+  end
+
+  def my_map(&proc)
+    return to_enum unless block_given?
+
+    array = to_a
+    mapped_array = []
+    i = 0
+
+    while i < array.size
+      mapped_array << proc.call(array[i])
+      i += 1
+    end
+    mapped_array
   end
 
   def my_inject(param1 = nil, param2 = nil)
@@ -95,21 +110,5 @@ module Enumerable
       i += 1
     end
     accumulator
-  end
-
-  def my_map(&proc)
-    return to_enum unless block_given?
-
-    array = to_a
-    mapped_array = []
-    i = 0
-
-    if !proc.nil? && block_given?
-      while i < array.size
-        mapped_array << proc.call(array[i])
-        i += 1
-      end
-    end
-    mapped_array
   end
 end
