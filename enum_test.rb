@@ -36,11 +36,12 @@ print(%w[ant bear cat].my_all? { |word| word.length >= 3 })
 puts
 print(%w[ant bear cat].my_all? { |word| word.length >= 4 })
 puts
-puts %w[ant beart cat].my_all?(/t/)
 puts [2, 1, 6, 7, 4, 8, 10].my_all?(3)
-puts %w[ant beart cat].my_all?("cat")
-puts [1, 2i, 3.14].my_all?(Numeric)
-puts [nil, true, 99].my_all?
+puts %w[ant bear cat].my_all?('cat')
+puts %w[ant bear cat].my_all?(/a/)
+puts [1, 5i, 5.67].my_all?(Numeric)
+puts [2, 1, 6, 7, 4, 8, 10].my_all?(Integer)
+puts [nil, true, 99].all?
 puts [].my_all?
 
 puts '_' * 40
@@ -48,6 +49,11 @@ puts '_' * 40
 puts 'Test for #my_any'
 puts(%w[ant bear cat].my_any? { |word| word.length >= 3 })
 puts(%w[ant bear cat].my_any? { |word| word.length >= 4 })
+puts %w[ant bear cat].my_any?(/d/)
+puts [2, 1, 6, 7, 4, 8, 10].my_any?(7)
+puts %w[ant bear cat].my_any?('cat')
+puts [nil, true, 99].my_any?(Integer)
+puts ['1', 5i, 5.67].my_any?(Numeric)
 puts [nil, true, 99].my_any?
 puts [].my_any?
 
@@ -56,10 +62,16 @@ puts '_' * 40
 puts 'Test for #my_none'
 puts(%w[ant bear cat].my_none? { |word| word.length == 5 })
 puts(%w[ant bear cat].my_none? { |word| word.length >= 4 })
+puts %w[ant bear cat].my_none?(/j/)
+puts [2, 1, 6, 7, 4, 8, 10].my_none?(15)
+puts %w[ant bear cat].my_none?('cat')
+puts [1, 3.14, 42].my_none?(Float)
+puts [1, 5i, 5.67].my_none?(Numeric)
 puts [].my_none?
 puts [nil].my_none?
 puts [nil, false].my_none?
 puts [nil, false, true].my_none?
+puts [nil, nil, nil, nil].my_none?
 
 puts '_' * 40
 # Test for #my_count

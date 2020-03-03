@@ -33,49 +33,51 @@ module Enumerable
     selected_array
   end
 
+  # rubocop:disable Metrics/PerceivedComplexity,Metrics/CyclomaticComplexity
+
   def my_all?(param = nil)
-    bool = true
-    bool = false if include?(false) || include?(nil)
     my_each do |n|
-      if block_given?
-        bool = false unless yield(n)
-      elsif n.class <= param
-        bool = false unless n == param
-      elsif n.class != param
-        bool = false
-      elsif 
-        regex = Regexp.new param
-        bool = false unless n.to_s.match?(regex)
+      case
+      when block_given? then return false unless yield(n)
+      when param.is_a?(Regexp) then return false unless n.to_s.match?(param)
+      when param.is_a?(Class) then return false unless n.is_a?(param)
+      when !param.nil? then return false if n != param
+      else
+        return false if include?(false) || include?(nil)
       end
-      break unless bool
     end
-    bool
+    true
   end
 
-  def my_any?
-    i = 0
-    while i < size
-      return true if block_given? && yield(self[i])
-      return true if !self[i] == false && !self[i].nil?
-
-      i += 1
+  def my_any?(param = nil)
+    my_each do |n|
+      case
+      when block_given? then return true if yield(n)
+      when param.is_a?(Regexp) then return true if n.to_s.match?(param)
+      when param.is_a?(Class) then return true if n.is_a?(param)
+      when !param.nil? then return true if n == param
+      else
+        return true unless include?(false) || include?(nil)
+      end
     end
     false
   end
 
-  def my_none?
-    i = 0
-    while i < size
-      if block_given?
-        return false if yield(self[i])
-      elsif !self[i] == false && !self[i].nil?
-        return false
+  def my_none?(param = nil)
+    my_each do |n|
+      case
+      when block_given? then return false if yield(n)
+      when param.is_a?(Regexp) then return false if n.to_s.match?(param)
+      when param.is_a?(Class) then return false if n.is_a?(param)
+      when !param.nil? then return false if n == param
+      else
+        return false if n != false && !n.nil?
       end
-
-      i += 1
     end
     true
   end
+
+  # rubocop:enable Metrics/PerceivedComplexity,Metrics/CyclomaticComplexity
 
   def my_count(item = nil)
     return size if !block_given? && item.nil?
