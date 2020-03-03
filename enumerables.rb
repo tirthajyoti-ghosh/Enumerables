@@ -42,8 +42,7 @@ module Enumerable
       when param.is_a?(Regexp) then return false unless n.to_s.match?(param)
       when param.is_a?(Class) then return false unless n.is_a?(param)
       when !param.nil? then return false if n != param
-      else
-        return false if include?(false) || include?(nil)
+      else return false if include?(false) || include?(nil)
       end
     end
     true
@@ -56,8 +55,7 @@ module Enumerable
       when param.is_a?(Regexp) then return true if n.to_s.match?(param)
       when param.is_a?(Class) then return true if n.is_a?(param)
       when !param.nil? then return true if n == param
-      else
-        return true unless include?(false) || include?(nil)
+      else return true if n != false || !n.nil?
       end
     end
     false
@@ -70,8 +68,7 @@ module Enumerable
       when param.is_a?(Regexp) then return false if n.to_s.match?(param)
       when param.is_a?(Class) then return false if n.is_a?(param)
       when !param.nil? then return false if n == param
-      else
-        return false if n != false && !n.nil?
+      else return false if n != false && !n.nil?
       end
     end
     true
