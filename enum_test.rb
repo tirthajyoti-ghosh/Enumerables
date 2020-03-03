@@ -32,10 +32,16 @@ puts
 puts '_' * 40
 # Test for #my_all
 puts 'Test for #my_all'
-puts(%w[ant bear cat].my_all? { |word| word.length >= 3 })
-puts(%w[ant bear cat].my_all? { |word| word.length >= 4 })
+print(%w[ant bear cat].my_all? { |word| word.length >= 3 })
+puts
+print(%w[ant bear cat].my_all? { |word| word.length >= 4 })
+puts
+puts %w[ant beart cat].my_all?(/t/)
+puts [2, 1, 6, 7, 4, 8, 10].my_all?(3)
+puts %w[ant beart cat].my_all?("cat")
+puts [1, 2i, 3.14].my_all?(Numeric)
 puts [nil, true, 99].my_all?
-puts [].all?
+puts [].my_all?
 
 puts '_' * 40
 # Test for #my_any

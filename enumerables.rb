@@ -33,15 +33,23 @@ module Enumerable
     selected_array
   end
 
-  def my_all?
-    i = 0
-    while i < size
-      return false if block_given? && !yield(self[i])
-      return false if self[i] == false || self[i].nil?
-
-      i += 1
+  def my_all?(param = nil)
+    bool = true
+    bool = false if include?(false) || include?(nil)
+    my_each do |n|
+      if block_given?
+        bool = false unless yield(n)
+      elsif n.class <= param
+        bool = false unless n == param
+      elsif n.class != param
+        bool = false
+      elsif 
+        regex = Regexp.new param
+        bool = false unless n.to_s.match?(regex)
+      end
+      break unless bool
     end
-    true
+    bool
   end
 
   def my_any?
