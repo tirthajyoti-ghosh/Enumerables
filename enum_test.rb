@@ -4,7 +4,7 @@ class Array
   prepend Enumerable
 end
 
-# Test method for #my_map
+# Test method for #my_inject
 def multiply_els(arr)
   arr.my_inject(1) { |product, n| product * n }
 end
@@ -32,16 +32,16 @@ puts
 puts '_' * 40
 # Test for #my_all
 puts 'Test for #my_all'
-print(%w[ant bear cat].my_all? { |word| word.length >= 3 })
-puts
-print(%w[ant bear cat].my_all? { |word| word.length >= 4 })
-puts
+puts(%w[ant bear cat].my_all? { |word| word.length >= 3 })
+puts(%w[ant bear cat].my_all? { |word| word.length >= 4 })
 puts [2, 1, 6, 7, 4, 8, 10].my_all?(3)
 puts %w[ant bear cat].my_all?('cat')
 puts %w[ant bear cat].my_all?(/a/)
 puts [1, 5i, 5.67].my_all?(Numeric)
 puts [2, 1, 6, 7, 4, 8, 10].my_all?(Integer)
 puts [nil, true, 99].all?
+puts [nil, false].my_all?
+puts [nil, nil, nil].my_all?
 puts [].my_all?
 
 puts '_' * 40
@@ -55,6 +55,8 @@ puts %w[ant bear cat].my_any?('cat')
 puts [nil, true, 99].my_any?(Integer)
 puts ['1', 5i, 5.67].my_any?(Numeric)
 puts [nil, true, 99].my_any?
+puts [nil, false].my_any?
+puts [nil, nil, nil].my_any?
 puts [].my_any?
 
 puts '_' * 40

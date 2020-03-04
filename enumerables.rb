@@ -1,10 +1,11 @@
 module Enumerable
-  def my_each()
+  def my_each
+    array = to_a
     i = 0
     while i < size
-      return to_enum unless block_given?
+      return array.to_enum unless block_given?
 
-      yield(self[i])
+      yield(array[i])
       i += 1
     end
     self
@@ -33,6 +34,7 @@ module Enumerable
     selected_array
   end
 
+  # Inspired by Kyle Law
   # rubocop:disable Metrics/PerceivedComplexity,Metrics/CyclomaticComplexity
 
   def my_all?(param = nil)
@@ -42,7 +44,7 @@ module Enumerable
       when param.is_a?(Regexp) then return false unless n.to_s.match?(param)
       when param.is_a?(Class) then return false unless n.is_a?(param)
       when !param.nil? then return false if n != param
-      else return false if include?(false) || include?(nil)
+      else return false if n == false || n.nil?
       end
     end
     true
@@ -55,7 +57,7 @@ module Enumerable
       when param.is_a?(Regexp) then return true if n.to_s.match?(param)
       when param.is_a?(Class) then return true if n.is_a?(param)
       when !param.nil? then return true if n == param
-      else return true if n != false || !n.nil?
+      else return true if n != false && !n.nil?
       end
     end
     false
@@ -103,18 +105,17 @@ module Enumerable
   def my_inject(param1 = nil, param2 = nil)
     array = to_a
     accumulator = array[0]
-    i = 1
 
     accumulator = yield(param1, accumulator) if block_given? && !param1.nil?
-    while i < array.size
+    accumulator = accumulator.send(param2, param1) unless param2.nil?
+    (1...array.size).my_each do |i|
       accumulator = if block_given?
                       yield(accumulator, array[i])
                     elsif param2.nil?
                       accumulator.send(param1, array[i])
                     else
-                      accumulator.send(param2, array[i]).send(param2, param1)
+                      accumulator.send(param2, array[i])
                     end
-      i += 1
     end
     accumulator
   end
