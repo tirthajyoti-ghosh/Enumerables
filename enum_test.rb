@@ -22,6 +22,10 @@ hash = {}
 %w[cat dog wombat].my_each_with_index { |item, index| hash[item] = index }
 print hash
 puts
+(1..5).my_each_with_index { |item, index| puts "#{item} => #{index}" }
+puts
+[1, 2, 3, 4, 5].my_each_with_index { |item, index| puts "#{item} => #{index}" }
+puts
 
 puts '_' * 40
 # Test for #my_select

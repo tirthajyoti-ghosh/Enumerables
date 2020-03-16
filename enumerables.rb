@@ -12,11 +12,16 @@ module Enumerable
   end
 
   def my_each_with_index
+    array = to_a if self.is_a? Range
     i = 0
     while i < size
       return to_enum unless block_given?
 
-      yield(self[i], i)
+      if self.is_a? Range
+        yield(array[i], i)
+      else
+        yield(self[i], i)
+      end
       i += 1
     end
     self
