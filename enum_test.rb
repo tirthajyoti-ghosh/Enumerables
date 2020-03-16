@@ -43,7 +43,7 @@ puts %w[ant bear cat].my_all?('cat')
 puts %w[ant bear cat].my_all?(/a/)
 puts [1, 5i, 5.67].my_all?(Numeric)
 puts [2, 1, 6, 7, 4, 8, 10].my_all?(Integer)
-puts [nil, true, 99].all?
+puts [nil, true, 99].my_all?
 puts [nil, false].my_all?
 puts [nil, nil, nil].my_all?
 puts [].my_all?
