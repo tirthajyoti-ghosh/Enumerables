@@ -49,7 +49,17 @@ RSpec.describe Enumerable do
     end
 
     it 'returns Enumerator if no block is given' do
-      expect([6, 7, 8, 9].my_each_with_index.class).to eql(Enumerator)
+      expect([2, 1, 6, 7, 4, 8].my_each_with_index.class).to eql(Enumerator)
+    end
+  end
+
+  describe "#my_select" do
+    it 'returns elements of the array that meets the condition in given block' do
+      expect([2, 1, 6, 7, 4, 8, 10].my_select(&:even?)).to eql([2, 6, 4, 8, 10])
+    end
+
+    it 'returns Enumerator if no block is given' do
+      expect([1, 6, 7, 4].my_select.class).to eql(Enumerator)
     end
   end
 end
