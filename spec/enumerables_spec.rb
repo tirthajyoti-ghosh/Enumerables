@@ -226,4 +226,86 @@ RSpec.describe Enumerable do
       end
     end
   end
+
+  describe "#my_none?" do
+    it 'returns true if condition in block is true for none the elements in the array' do
+      expect(%w[ant bear cat].my_none? { |word| word.length >= 5 }).to eql(true)
+    end
+
+    it 'returns false if condition in block is not true for none the elements in the array' do
+      expect(%w[ant bear cat].my_none? { |word| word.length >= 4 }).to eql(false)
+    end
+
+    it 'returns true if the array is empty' do
+      expect([].my_none?).to eql(true)
+    end
+
+    describe "when no parameter and no block given" do
+      it 'returns true if none of the element is not nil/false in array' do
+        expect([nil, false, false].my_none?).to eql(true)
+      end
+      
+      it 'returns false if any one of the element is nil/false in array' do
+        expect([nil, false, 9].my_none?).to eql(false)
+      end
+    end
+
+    describe "when one parameter is present and no block given" do
+      describe "when parameter is a Numeric" do
+        it 'returns true if the Integer in the parameter is equal to none the elements in array' do
+          expect([6, 7, 4, 8, 3].my_none?(5)).to eql(true)
+        end
+
+        it 'returns false if the Integer in the parameter is equal to any one of the elements in array' do
+          expect([2, 1, 6, 7, 4, 8, 10].my_none?(2)).to eql(false)
+        end
+        
+        it 'returns true if the Float in the parameter is equal to none the elements in array' do
+          expect([32.5, 32.7, 31, 42.3, 37].my_none?(32.3)).to eql(true)
+        end
+        
+        it 'returns false if the Float in the parameter is not equal to none the elements in array' do
+          expect([31, 42.3, 37, 32.3, 33.3].my_none?(32.3)).to eql(false)
+        end
+      end
+      
+      describe "when parameter is Pattern" do
+        it 'returns true if the Pattern in the parameter matches with none the elements in array' do
+          expect(%w[cats dogs bats].my_none?('cat')).to eql(true)
+        end
+        
+        it 'returns false if the Pattern in the parameter matches with any of the elements in array' do
+          expect(%w[ant bear cat].my_none?('cat')).to eql(false)
+        end
+      end
+      
+      describe "when parameter is Regexp" do
+        it 'returns true if the Regexp in the parameter matches with none the elements in array' do
+          expect(%w[ant bear cat].my_none?(/d/)).to eql(true)
+        end
+        
+        it 'returns false if the Regexp in the parameter does not match with none the elements in array' do
+          expect(%w[ant bear cat].my_none?(/a/)).to eql(false)
+        end
+      end
+      
+      describe "when parameter is Class/Superclass" do
+        it 'returns true if the Class in the parameter is a Superclass of none the elements in array' do
+          expect(["1", true, [5.67]].my_none?(Numeric)).to eql(true)
+        end
+        
+        it 'returns false if the Class in the parameter is not a Superclass of none the elements in array' do
+          expect([1, 5i, 5.67, 41].my_none?(Numeric)).to eql(false)
+        end
+        
+        it 'returns true if the Class in the parameter is the Class of none the elements in array' do
+          expect([2, 1, 6, 7, 4, 8, 10].my_none?(String)).to eql(true)
+        end
+        
+        it 'returns false if the Class in the parameter is not the Class of none the elements in array' do
+          expect(["1", "5i", 5.67, "true"].my_none?(String)).to eql(false)
+        end
+      end
+    end
+  end
 end
