@@ -12,18 +12,12 @@ module Enumerable
   end
 
   def my_each_with_index
-    array = to_a if self.is_a? Range
-    i = 0
-    while i < size
-      return to_enum unless block_given?
+    return to_enum unless block_given?
 
-      if self.is_a? Range
-        yield(array[i], i)
-      else
-        yield(self[i], i)
-      end
-      i += 1
-    end
+    array = to_a
+
+    (0...array.size).my_each { |i| yield(array[i], i) }
+
     self
   end
 
