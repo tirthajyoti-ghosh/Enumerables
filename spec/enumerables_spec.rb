@@ -322,4 +322,24 @@ RSpec.describe Enumerable do
       expect([1, 2, 4, 2].my_count { |x| x > 1 }).to eql(3)
     end
   end
+
+  describe "#my_map" do
+    it 'returns a new array after executing the block on each element of the Array its called on' do
+      expect([5, 1, 3, 4, 2].my_map { |n| n + 2 }).to eql([7, 3, 5, 6, 4])
+    end
+
+    it 'returns a new array after executing the block on each element of the Range its called on' do
+      expect((1..4).my_map { |i| i * i }).to eql([1, 4, 9, 16])
+    end
+
+    it 'returns a new array after executing the proc on each element of the Array its called on' do
+      arr_proc = proc { |n| n * 2 }
+      expect([2, 3, 5, 6, 1, 7, 5, 3, 9].my_map(&arr_proc)).to eql([4, 6, 10, 12, 2, 14, 10, 6, 18])
+    end
+
+    it 'returns a new array after executing the proc and block on a chain method call on each element of the Array its called on' do
+      arr_proc = proc { |n| n * 2 }
+      expect([2, 3, 5, 6, 1, 7, 5, 3, 9].my_map(&arr_proc).my_map { |n| n + 1 }).to eql([5, 7, 11, 13, 3, 15, 11, 7, 19])
+    end
+  end
 end
