@@ -31,7 +31,7 @@ RSpec.describe Enumerable do
     it 'executes the block for each element and its index of the Array its called on' do
       hash = {}
       %w[cat dog wombat].my_each_with_index { |item, index| hash[item] = index }
-      expect(hash).to eql({ 'cat' => 0, 'dog' => 1, 'wombat' => 2 })
+      expect(hash).to eql('cat' => 0, 'dog' => 1, 'wombat' => 2)
     end
 
     it 'executes the block for each element of the Range its called on' do
