@@ -308,4 +308,18 @@ RSpec.describe Enumerable do
       end
     end
   end
+
+  describe "#my_count" do
+    it 'retuurns the length of the array its called on if no block or parameter is given' do
+      expect([1, 2, 4, 2].my_count).to eql(4)
+    end
+    
+    it 'returns the number of the elements that matches the parameter' do
+      expect([1, 2, 4, 2].my_count(2)).to eql(2)
+    end
+    
+    it 'returns the number of the elements that matches the condition given in block' do
+      expect([1, 2, 4, 2].my_count { |x| x > 1 }).to eql(3)
+    end
+  end
 end
