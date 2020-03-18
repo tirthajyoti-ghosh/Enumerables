@@ -30,8 +30,11 @@ To get a local copy up and running follow these simple example steps.
 
 ### Run tests
 
-- Run the file `enum_test.rb`. This file contains the test cases.
-- Run the file using `ruby <enum_test.rb>` command
+- Clone the repo to your local folder.
+- cd to the folder.
+- install rspec by `gem install rspec`
+- Run `rspec`.
+- `78 examples, 0 failures` will be output.
 
 ## Author
 
