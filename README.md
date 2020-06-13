@@ -42,7 +42,7 @@ To get a local copy up and running follow these simple example steps.
 
 - Github: [@tirthajyoti-ghosh](https://github.com/tirthajyoti-ghosh)
 - Twitter: [@terrific_ghosh](https://twitter.com/terrific_ghosh)
-- Linkedin: [Tirthajyoti Ghosh](https://www.linkedin.com/in/tirthajyoti-ghosh-370544199/)
+- Linkedin: [Tirthajyoti Ghosh](https://www.linkedin.com/in/tirthajyoti-ghosh/)
 
 ## 🤝 Contributing
 
